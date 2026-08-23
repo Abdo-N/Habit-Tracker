@@ -1,4 +1,5 @@
 import express from "express";
+import { createHabit, getAllHabits, deleteHabit, editHabit, toggleHabit } from "../controllers/habitsController.js";
 
 const router = express.Router();
 
@@ -27,3 +28,4 @@ router.post("/:id/toggle", toggleHabit);
 
 router.post("/:id/toggle/:day", toggleHabit);
 
+export default router;

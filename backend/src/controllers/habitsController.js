@@ -72,9 +72,33 @@ export async function editHabit(req, res) {
 
 export async function toggleHabit(req, res) {
     try {
-    
-  }
-  catch (error) {
-    
+      
+        const  updatedHabit = await Habit.findById(req.params.id);
+
+        if(!updatedHabit)
+        {
+            return res.status(404).json({message:"Habit not found"});
+        }
+
+        const targetDate = req.params.day ? req.params.day : new Date().toISOString().split("T")[0];
+
+        // Toggle the habit for the specified day
+        if(updatedHabit.completedDays.includes(targetDate))
+        {
+          // Remove the day from completedDays
+          updatedHabit.completedDays = updatedHabit.completedDays.filter(day => day !== targetDate);
+        }
+        else
+        {
+          // Add the day to completedDays
+          updatedHabit.completedDays.push(targetDate);
+        }
+
+        const savedHabit = await updatedHabit.save();
+        res.status(200).json(savedHabit);
+        
+      } catch (error) {
+        console.error("Error toggling Habit:", error);
+        res.status(500).json({ message: "Internal server error" });
   }
 }

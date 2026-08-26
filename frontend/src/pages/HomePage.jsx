@@ -20,10 +20,20 @@ function HomePage() {
         setHabits(habits.map(h => h._id === id ? res.data : h));
     }
 
+    async function handleEdit(id, updatedHabit) {
+        const res = await api.put(`/habits/${id}`, updatedHabit);
+        setHabits(habits.map(h => h._id === id ? res.data : h));
+    }
+
+    async function handleDelete(id) {
+        const res = await api.delete(`/habits/${id}`);
+        setHabits(habits.filter(h => h._id !== id));
+    }
+
   return (
     <div>
       {habits.map((habit) => (
-        <HabitCard key={habit._id} habit={habit} onToggle={handleToggle} />
+        <HabitCard key={habit._id} habit={habit} onToggle={handleToggle} onEdit={handleEdit} onDelete={handleDelete} />
       ))}
     </div>
   );

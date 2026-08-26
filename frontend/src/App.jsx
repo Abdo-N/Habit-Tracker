@@ -1,25 +1,12 @@
-import { useState, useEffect } from "react";
-import api from "./lib/axios.js";
+import { Route, Routes } from "react-router";
+import HomePage from "./pages/HomePage";
+import HabitCard from "./components/HabitCard";
 
-
-function App() {
-  const [habits, setHabits] = useState([]);
-
-  useEffect(() => {
-    async function fetchHabits() {
-      const res = await api.get("/habits");
-      setHabits(res.data);
-    }
-    fetchHabits();
-  }, []);
-
+const App = () => {
   return (
-    <div>
-      {habits.map((habit) => (
-        <p key={habit._id}>{habit.icon} {habit.name}</p>
-      ))}
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+    </Routes>
   );
-}
-
+};
 export default App;

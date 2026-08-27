@@ -49,7 +49,8 @@ function HomePage() {
         <input type="text" placeholder="Habit Name" value={name} onChange={(e) => setName(e.target.value)} />
         <input type="text" placeholder="Habit Icon" value={icon} onChange={(e) => setIcon(e.target.value)} />
         <input type="text" placeholder="Habit Color" value={color} onChange={(e) => setColor(e.target.value)} />
-        <button onClick={handleCreate}>Create</button>
+        <button onClick={handleCreate} className = "btn btn-active">Create</button>
+        <button onClick={() => setIsAdding(false)} className = "btn btn-active">Cancel</button>
       </div>
     )}
 
@@ -57,7 +58,7 @@ function HomePage() {
       <HabitCard key={habit._id} habit={habit} onToggle={handleToggle} onEdit={handleEdit} onDelete={handleDelete} />
     ))}
 
-    <button onClick={() => setIsAdding(true)}>Add Habit</button>
+    <button onClick={() => setIsAdding(true)} className = "btn btn-active">Add Habit</button>
   </div>
 );
 }

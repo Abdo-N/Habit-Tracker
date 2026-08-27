@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import {getCurrentStreak, getLastYearDates, getBestStreak} from "../lib/utils.js";
 
 
 const HabitCard = ({ habit, onToggle, onEdit, onDelete }) => {
 
     const today = new Date().toISOString().split("T")[0];
     const isCheckedToday = habit.completedDays.includes(today);
+    const dates = getLastYearDates();
     
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(habit.name);
@@ -50,6 +52,10 @@ const HabitCard = ({ habit, onToggle, onEdit, onDelete }) => {
       ) : 
       (
         <div className="card w-96 bg-base-100 card-md shadow-sm">
+        <div className="card-body">
+        <h2 className="card-title">{habit.icon} {habit.name}</h2>
+        <p className="card-text">{getCurrentStreak(habit.completedDays)}-day streak</p>
+        <p className="card-text">Best: {getBestStreak(habit.completedDays)}</p>
 
         {/*toggle button for habit*/}
         <input
@@ -64,12 +70,23 @@ const HabitCard = ({ habit, onToggle, onEdit, onDelete }) => {
 
         {/*delete button for habit*/}
         <button onClick={() => onDelete(habit._id)} className="btn btn-outline btn-error rounded-full">Delete</button>
+        
+        
 
-        <div className="card-body">
-        <h2 className="card-title">{habit.icon} {habit.name}</h2>
-        {/* rest of the card */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(20, 12px)", gap: "2px" }}>
+          {dates.map(date => {
+            const isCompleted = habit.completedDays.includes(date);
+            return (
+              <div
+                key={date}
+                style={{ backgroundColor: isCompleted ? habit.color : "#e5e5e5", width: "12px", height: "12px" }}
+                title={date}
+              ></div>
+            );
+          })}
+        </div>
       </div>
-    </div>
+      </div>
     );
 };
 

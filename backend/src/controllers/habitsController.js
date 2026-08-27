@@ -4,8 +4,8 @@ import Habit from "../models/Habit.js"
 
 export async function createHabit(req, res) {
     try {
-    const {name, icon, color} = req.body;
-    const habit = new Habit({ name, icon, color });
+    const {name, icon, color, completedDays} = req.body;
+    const habit = new Habit({ name, icon, color, completedDays });
 
     const savedHabit = await habit.save();
     res.status(201).json(savedHabit);

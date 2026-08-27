@@ -43,26 +43,30 @@ function HomePage() {
   }
 
  return (
-  <div>
+  <div className="max-w-5xl mx-auto p-4">
+    
+    <div className="flex flex-col gap-3">
+      {habits.map((habit) => (
+        <HabitCard key={habit._id} habit={habit} onToggle={handleToggle} onEdit={handleEdit} onDelete={handleDelete} />
+      ))}
+    </div>
+
     {isAdding && (
-      <div>
-        <input type="text" placeholder="Habit Name" value={name} onChange={(e) => setName(e.target.value)} />
-        <input type="text" placeholder="Habit Icon" value={icon} onChange={(e) => setIcon(e.target.value)} />
-        <input type="text" placeholder="Habit Color" value={color} onChange={(e) => setColor(e.target.value)} />
-        <button onClick={handleCreate} className = "btn btn-active">Create</button>
-        <button onClick={() => setIsAdding(false)} className = "btn btn-active">Cancel</button>
+      <div className="card bg-base-100 shadow-sm p-4 flex flex-col gap-3 mb-3">
+        <input type="text" placeholder="Habit Name" value={name} onChange={(e) => setName(e.target.value)} className="input input-bordered w-full" />
+        <input type="text" placeholder="Habit Icon" value={icon} onChange={(e) => setIcon(e.target.value)} className="input input-bordered w-full" />
+        <input type="text" placeholder="Habit Color" value={color} onChange={(e) => setColor(e.target.value)} className="input input-bordered w-full" />
+        <div className="flex gap-2">
+          <button onClick={handleCreate} className="btn btn-active">Create</button>
+          <button onClick={() => setIsAdding(false)} className="btn btn-active">Cancel</button>
+        </div>
       </div>
     )}
-
-    {habits.map((habit) => (
-      <HabitCard key={habit._id} habit={habit} onToggle={handleToggle} onEdit={handleEdit} onDelete={handleDelete} />
-    ))}
-
     <button onClick={() => setIsAdding(true)} className = "btn btn-active">Add Habit</button>
+
   </div>
 );
 }
-
 
 
 export default HomePage;

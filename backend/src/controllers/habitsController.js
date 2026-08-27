@@ -8,7 +8,7 @@ export async function createHabit(req, res) {
     const habit = new Habit({ name, icon, color });
 
     const savedHabit = await habit.save();
-    res.status(201).json({savedHabit});
+    res.status(201).json(savedHabit);
   }
   catch (error) {
     console.error("Error creating Habit:", error);

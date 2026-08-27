@@ -5,10 +5,12 @@ const HabitCard = ({ habit, onToggle, onEdit, onDelete }) => {
 
     const today = new Date().toISOString().split("T")[0];
     const isCheckedToday = habit.completedDays.includes(today);
+    
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(habit.name);
     const [icon, setIcon] = useState(habit.icon);
     const [color, setColor] = useState(habit.color);
+
 
   return isEditing ? (
         <div>

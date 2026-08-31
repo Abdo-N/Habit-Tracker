@@ -1,5 +1,6 @@
 import express from "express";
 import { createHabit, getAllHabits, deleteHabit, editHabit, toggleHabit } from "../controllers/habitsController.js";
+import { requireAuth } from "../middleware/requireAuth.js";
 
 const router = express.Router();
 
@@ -11,6 +12,9 @@ const router = express.Router();
 5. toggling a habit as done (today) "POST /api/habits/:id/toggle"
 6. toggling a habit as done (anyday) "POST /api/habits/:id/toggle/:day"
 */
+
+// ALL routes below this line require a valid JWT
+router.use(requireAuth);
 
 //creating new habit
 router.post("/", createHabit);

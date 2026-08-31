@@ -17,6 +17,11 @@ const habitSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    user: {
+    type: mongoose.Schema.Types.ObjectId,  // MongoDB's ID type
+    ref: "User",                            // tells Mongoose "this points to a User"
+    required: true                          // every habit MUST belong to someone
+  }
 },
   {
     timestamps: true, //created at, or updated at

@@ -11,7 +11,7 @@ const Account = () => {
   const navigate = useNavigate();
 
   async function handleSubmit(e) {
-    e.preventDefault();           // stop page reload
+    e.preventDefault();
     setError("");
     setLoading(true);
 
@@ -19,13 +19,13 @@ const Account = () => {
       const endpoint = isLogin ? "/account/login" : "/account/signup";
       const res = await api.post(endpoint, { email, password });
       
-      // Save token to localStorage
       localStorage.setItem("token", res.data.token);
       
-      // Redirect to home
-      navigate("/");
+      // Use window.location for a hard redirect
+      window.location.href = "/";
     } catch (err) {
-      setError(err.response?.data?.error || "Something went wrong");
+      const msg = err.response?.data?.error || err.response?.data?.message || "Something went wrong";
+      setError(typeof msg === "string" ? msg : "Something went wrong");
     } finally {
       setLoading(false);
     }

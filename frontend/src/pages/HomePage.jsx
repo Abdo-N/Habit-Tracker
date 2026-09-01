@@ -11,17 +11,21 @@ function HomePage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function fetchHabits() {
-      try {
-        const res = await api.get("/habits");
-        setHabits(res.data);
-      } catch (err) {
-        console.error("Failed to fetch habits:", err);
-        setError("Failed to load habits. Please try again.");
+  async function fetchHabits() {
+    try {
+      const res = await api.get("/habits");
+      setHabits(res.data);
+    } catch (err) {
+      console.error("Failed to fetch habits:", err);
+      // Optionally: redirect to login if 401
+      if (err.response?.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/account";
       }
     }
-    fetchHabits();
-  }, []);
+  }
+  fetchHabits();
+}, []);
 
   async function handleToggle(id) {
     try {
